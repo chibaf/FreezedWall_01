@@ -5,7 +5,7 @@ import sys
 from read_m5_class import m5logger
 
 data0=[0]*10
-data=[data0]*10
+data=[data0]*100
 
 ser = serial.Serial(sys.argv[2],sys.argv[1])
 sport=m5logger()
@@ -17,9 +17,9 @@ while True:
       data.pop(-1)
       data.insert(0,array)
       rez = [[data[j][i] for j in range(len(data))] for i in range(len(data[0]))]
-      x=range(0, 10, 1)
+      x=range(0, 100, 1)
       plt.clf()
-      plt.ylim(0, 30)
+      plt.ylim(0,60)
       line1,=plt.plot(x,rez[0],label="L1")
       line2,=plt.plot(x,rez[1],label="L2")
       line3,=plt.plot(x,rez[2],label="L3")
