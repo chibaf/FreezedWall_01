@@ -10,6 +10,12 @@ data=[data0]*100
 ser = serial.Serial(sys.argv[2],sys.argv[1])
 sport=m5logger()
 
+if len(sys.argv)<4:
+  fn="test.csv"
+else:
+  fn=sys.argv[3]
+f=open(fn,'w',encoding="utf-8")
+
 while True:
   try:
     array=sport.read_logger(ser)
@@ -32,8 +38,15 @@ while True:
       line10,=plt.plot(x,rez[9],label="L10")
       plt.legend(handles=[line1,line2,line3,line4,line5,line6,line7,line8,line9,line10])
       plt.pause(0.1)
+      if len(array)==10:
+        strg=str(array[0])+","+str(array[1])+","+str(array[2])+","+str(array[3])+","+str(array[4])+","+str(array[5])+","+str(array[6])+","+str(array[7])+","+str(array[8])+","+str(array[9])
+        f.write(strg+"\n")
+      else:
+        f.write(str(array)+"\n")
   except KeyboardInterrupt:
     print ('exiting')
+    f.close()
     break
 ser.close()
+f.close()
 exit()
